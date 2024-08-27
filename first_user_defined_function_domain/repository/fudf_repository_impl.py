@@ -34,4 +34,4 @@ class FudfRepositoryImpl(FudfRepository):
             "list1": list1,
             "list2": list2,
             "simpleIntValue": simpleIntValue,
-            "anotherStringValue": anotherStringValue
+            "anotherStringValue": anotherStringValue}
