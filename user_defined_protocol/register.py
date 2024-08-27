@@ -4,9 +4,9 @@ import sys
 from first_user_defined_function_domain.service.fudf_service_impl import FudfServiceImpl
 from first_user_defined_function_domain.service.request.fudf_just_for_test_request import FudfJustForTestRequest
 from first_user_defined_function_domain.service.response.fudf_just_for_test_response import FudfJustForTestResponse
-from llama_test.service.llama_test_service_impl import LlamaTestServiceImpl
-from llama_test.service.request.llama_test_request import LlamaTestRequest
-from llama_test.service.response.llama_test_response import LlamaTestResponse
+from openai.service.openai_service_impl import OpenAIServiceImpl
+from openai.service.request.openai_request import OpenAIRequest
+from openai.service.response.openai_response import OpenAIResponse
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'template'))
 
@@ -41,36 +41,29 @@ class UserDefinedProtocolRegister:
             firstUserDefinedFunctionService.justForTest
         )
 
-    # 여러분의 사용자 정의형 프로토콜 등록 파트
     @staticmethod
-    def registerLlamaTestProtocol():
+    def registerOpenAIProtocol():
         customProtocolService = CustomProtocolServiceImpl.getInstance()
-        llamaTestService = LlamaTestServiceImpl.getInstance()
+        openAIService = OpenAIServiceImpl.getInstance()
 
-        # 여러분들이 구성한 것 (프로토콜과 request 등록)
         requestClassMapInstance = RequestClassMap.getInstance()
         requestClassMapInstance.addRequestClass(
-            UserDefinedProtocolNumber.TCP_TEAM_LLAMA_TEST,
-            LlamaTestRequest
+            UserDefinedProtocolNumber.GTP_OPENAI_TEST,
+            OpenAIRequest
         )
 
-				# 여러분들이 구성한 것 (프로토콜과 response 등록)
         responseClassMapInstance = ResponseClassMap.getInstance()
         responseClassMapInstance.addResponseClass(
-            UserDefinedProtocolNumber.TCP_TEAM_LLAMA_TEST,
-            LlamaTestResponse
+            UserDefinedProtocolNumber.GTP_OPENAI_TEST,
+            OpenAIResponse
         )
 
-				# 여러분들이 구성한 것 (프로토콜과 구동할 함수 등록)
         customProtocolService.registerCustomProtocol(
-            UserDefinedProtocolNumber.TCP_TEAM_LLAMA_TEST,
-            llamaTestService.chatWithLlama
+            UserDefinedProtocolNumber.GTP_OPENAI_TEST,
+            openAIService.testai
         )
 
-		# 초기 구동에서 호출하는 부분
     @staticmethod
     def registerUserDefinedProtocol():
-		    # 디폴트 구성
         UserDefinedProtocolRegister.registerDefaultUserDefinedProtocol()
-	      # 여러분의 사용자 정의형 프로토콜 등록 파트
-        UserDefinedProtocolRegister.registerLlamaTestProtocol()
+        UserDefinedProtocolRegister.registerOpenAIProtocol()
