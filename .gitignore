@@ -295,6 +295,7 @@ pyrightconfig.json
 # exclude .DS_Store (MaC)
 .DS_Store
 
+<<<<<<< HEAD
 # exclude images
 *.png
 *.jpg
